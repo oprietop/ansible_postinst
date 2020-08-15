@@ -8,7 +8,5 @@
     - tree
     - vim
     - mc
-    - docker.io
     - sshguard
-    - htpdate
     state: present

@@ -1,4 +1,10 @@
 ---
+- name: Install docker.io
+  apt:
+    pkg:
+    - docker.io
+    state: present
+
 - name: Ensure docker is running
   service:
     name: docker

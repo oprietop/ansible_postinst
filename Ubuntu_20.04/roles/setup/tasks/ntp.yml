@@ -1,4 +1,10 @@
 ---
+- name: Install htpdate
+  apt:
+    pkg:
+    - htpdate
+    state: present
+
 - name: Start service htpdate if not started
   service:
     name: htpdate
