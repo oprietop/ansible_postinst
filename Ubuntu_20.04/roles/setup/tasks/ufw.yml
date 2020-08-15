@@ -1,0 +1,26 @@
+---
+- name: Ensure ufw is installed
+  apt:
+    name: ufw
+    state: present
+
+- name: ufw deny incoming
+  ufw:
+    direction: incoming
+    proto: any
+    policy: deny
+
+- name: ufw allow outgoing
+  ufw:
+    direction: outgoing
+    proto: any
+    policy: allow
+
+- name: ufw allow ssh
+  ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: enable ufw service
+  ufw:
+    state: enabled

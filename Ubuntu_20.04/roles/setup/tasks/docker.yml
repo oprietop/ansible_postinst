@@ -1,0 +1,13 @@
+---
+- name: Ensure docker is running
+  service:
+    name: docker
+    state: started
+
+- name: Install docker-compose
+  vars:
+   release: "1.26.2"
+  get_url: 
+    url : "https://github.com/docker/compose/releases/download/{{ release }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'

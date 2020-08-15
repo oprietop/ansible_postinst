@@ -1,0 +1,12 @@
+---
+- name: Set authorized key taken from file id_ssh_rsa.pub
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '~/.ssh/keys/{{ inventory_hostname }}/id_ssh_rsa.pub') }}"
+
+- name: Set authorized key taken from file id_ed25519.pub
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '~/.ssh/keys/{{ inventory_hostname }}/id_ed25519.pub') }}"

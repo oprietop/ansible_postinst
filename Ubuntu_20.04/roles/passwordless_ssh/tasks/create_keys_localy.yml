@@ -1,0 +1,41 @@
+- name: Create a directory into the .ssh folder
+  file:
+    path: "~/.ssh/keys/{{ item.key }}"
+    state: directory
+    mode: '0700'
+  with_dict:
+  - "{{ hostvars }}" 
+  loop_control:
+    label: "{{ item.key }}"   
+  delegate_to: localhost
+
+- name: Create the rsa pair keys
+  openssh_keypair:
+    path: "~/.ssh/keys/{{ item.key }}/id_ssh_rsa"
+    type: rsa
+  with_dict:
+  - "{{ hostvars }}" 
+  loop_control:
+    label: "{{ item.key }}"   
+  delegate_to: localhost
+
+- name: Create the ed25519 keys
+  openssh_keypair:
+    path: "~/.ssh/keys/{{ item.key }}/id_ed25519"
+    type: ed25519
+  with_dict:
+  - "{{ hostvars }}" 
+  loop_control:
+    label: "{{ item.key }}"   
+  delegate_to: localhost
+
+- name: Insert/Update ~/.ssh/config
+  blockinfile:
+    path: ~/.ssh/config
+    create: yes
+    backup: yes
+    block: |
+      Host {{ ansible_host }}
+          User root
+          IdentityFile  ~/.ssh/keys/{{ inventory_hostname }}/id_ed25519
+  delegate_to: localhost

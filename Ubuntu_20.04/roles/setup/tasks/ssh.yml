@@ -1,0 +1,25 @@
+---
+- name: Create new host rsa pair keys
+  openssh_keypair:
+    path: "/etc/ssh/ssh_host_rsa_key"
+    force: yes
+
+- name: Create new host ed25519 keys
+  openssh_keypair:
+    path: "/etc/ssh/ssh_host_ed25519_key"
+    force: yes
+
+- name: Update sshd configuration safely, avoid locking yourself out
+  template:
+    src: etc/ssh/sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0600'
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
+
+- name: reload ssh
+  service:
+    name: ssh 
+    state: reloaded

@@ -1,0 +1,8 @@
+--- 
+- name: Do the stuff
+  hosts: remotes
+  gather_facts: false
+  roles:
+  - passwordless_ssh
+  - setup
+  - nench

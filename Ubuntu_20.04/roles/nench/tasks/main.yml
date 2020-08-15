@@ -1,0 +1,14 @@
+---
+- name: Download nench.sh
+  get_url:
+    url: http://wget.racing/nench.sh
+    dest: /root/nench.sh
+    mode: '0700'
+
+- name: execute nench.sh
+  shell: |
+    sh nench.sh 2>&1 1>nench.log
+    sh nench.sh 2>&1 1>>nench.log
+  args:
+    chdir: /root
+    creates: /root/nench.log

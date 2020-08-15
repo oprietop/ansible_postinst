@@ -1,0 +1,9 @@
+[all:vars]
+ansible_connection=ssh
+ansible_user=root
+ansible_ssh_pass=XXXXXXXXX
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o userknownhostsfile=/dev/null'
+ansible_python_interpreter=/usr/bin/python3
+
+[remotes]
+test ansible_host=XXX.XXX.XXX.XX ansible_ssh_pass=XXXXXXXXXXXX
